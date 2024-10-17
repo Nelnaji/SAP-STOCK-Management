@@ -39,9 +39,6 @@ public class Article extends BaseEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     private Category category;
 
-    @ManyToMany
-    private final Set<StockMovement> movements = new HashSet<>();
-
 
     public Article(UUID id, String designation, long unitPriceExcludingTax, VAT vat, String picture, Category category) {
         super(id);
@@ -63,15 +60,4 @@ public class Article extends BaseEntity {
         return addedValue.setScale(0, RoundingMode.HALF_UP).longValue();
     }
 
-
-    public Set<StockMovement> getMovements(){
-        return Set.copyOf(movements);
-    }
-
-    public void addMovement(StockMovement movement){
-        movements.add(movement);
-    }
-    public void removeMovement(StockMovement movement){
-        movements.remove(movement);
-    }
 }

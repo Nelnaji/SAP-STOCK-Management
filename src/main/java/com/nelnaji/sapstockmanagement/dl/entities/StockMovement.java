@@ -1,10 +1,7 @@
 package com.nelnaji.sapstockmanagement.dl.entities;
 
 import com.nelnaji.sapstockmanagement.dl.enums.StockMovementType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -28,10 +25,15 @@ public class StockMovement extends BaseEntity{
     private LocalDateTime movementDate;
 
 
-    public StockMovement(UUID id, StockMovementType movementType, int quantity, LocalDateTime movementDate) {
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Article article;
+
+
+    public StockMovement(UUID id, StockMovementType movementType, int quantity, LocalDateTime movementDate, Article article) {
         super(id);
         this.movementType = movementType;
         this.quantity = quantity;
         this.movementDate = movementDate;
+        this.article = article;
     }
 }
